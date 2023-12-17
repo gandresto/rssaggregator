@@ -65,3 +65,47 @@ server := &http.Server{
 fmt.Printf("Server starting on port %v\n", port)
 err := server.ListenAndServe()
 ```
+
+## Struct tags
+
+A field declaration may be followed by an optional string literal tag, which becomes an attribute for all the fields in the corresponding field declaration. The tags are made visible through a reflection interface but are otherwise ignored.
+
+More on struct tags: 
+- https://go.dev/ref/spec#Struct_types
+- https://pkg.go.dev/reflect#StructTag
+
+### Tags on json.Marshall()
+
+We use struct tags in this project to indicate the `encoding/json` `Marshall` function some metadata to map certain properties
+in some way. For example is used in the `respondWithError` method of [json.go](./json.go) file.
+
+```go
+type errResponse struct {
+	Error string `json:"error"`
+}
+```
+
+More examples:
+
+```go
+// Field appears in JSON as key "myName".
+Field int `json:"myName"`
+
+// Field appears in JSON as key "myName" and
+// the field is omitted from the object if its value is empty,
+// as defined above.
+Field int `json:"myName,omitempty"`
+
+// Field appears in JSON as key "Field" (the default), but
+// the field is skipped if empty.
+// Note the leading comma.
+Field int `json:",omitempty"`
+
+// Field is ignored by this package.
+Field int `json:"-"`
+
+// Field appears in JSON as key "-".
+Field int `json:"-,"`
+```
+
+More info about struct tags for `Marshall()` [here](https://pkg.go.dev/encoding/json#Marshal).
