@@ -10,12 +10,16 @@
 *.o
 *.a
 rssaggregator
+main
 
 # Folders
 _obj/
 _test/
 bin/
 .vscode/
+
+# Logs
+*.log
 
 # Test binary, built with `go test -c`
 *.test

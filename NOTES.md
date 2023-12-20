@@ -109,3 +109,23 @@ Field int `json:"-,"`
 ```
 
 More info about struct tags for `Marshall()` [here](https://pkg.go.dev/encoding/json#Marshal).
+
+## Database
+
+We will be using a postgres database in order to store user information, and will install the following go packages:
+
+### sqlc
+
+sqlc generates fully type-safe idiomatic Go code from SQL.sqlc generates fully type-safe idiomatic Go code from SQL.
+
+```bash
+go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+```
+
+### goose
+
+Goose is a database migration tool. Manage your database schema by creating incremental SQL changes or Go functions.
+
+```bash
+go install github.com/pressly/goose/v3/cmd/goose@latest
+```

@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: rssagg_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: rssaggregator
+    volumes:
+      - rssagg_db_data:/var/lib/postgresql/data
+
+volumes:
+  rssagg_db_data:
