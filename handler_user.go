@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gandresto/rssaggregator/internal/auth"
 	"github.com/gandresto/rssaggregator/internal/database"
 	"github.com/google/uuid"
 )
@@ -39,18 +38,6 @@ func (apiCfg *apiConfig) handlerCreateUser(w http.ResponseWriter, r *http.Reques
 	respondWithJSON(w, http.StatusCreated, databaseUserToUser(user))
 }
 
-func (apiCfg *apiConfig) handleGetUser(w http.ResponseWriter, r *http.Request) {
-	apiKey, err := auth.GetApiKey(r.Header)
-	if err != nil {
-		respondWithError(w, http.StatusForbidden, fmt.Sprint("Error parsing json:", err))
-		return
-	}
-
-	user, err := apiCfg.DB.GetUserByApiKey(r.Context(), apiKey)
-	if err != nil {
-		respondWithError(w, http.StatusNotFound, fmt.Sprint("Could not get the user:", err))
-		return
-	}
-
+func (apiCfg *apiConfig) handleGetUser(w http.ResponseWriter, r *http.Request, user database.User) {
 	respondWithJSON(w, 201, databaseUserToUser(user))
 }
